@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fishing-log",
+  "compatibility_date": "2026-04-30",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "fishing-log"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
