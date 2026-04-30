@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth'
 import { auth } from '../firebase'
+import useCatchStore from './useCatchStore'
 
 const useAuthStore = create((set) => ({
   user: null,
@@ -15,6 +16,9 @@ const useAuthStore = create((set) => ({
   init: () => {
     onAuthStateChanged(auth, (user) => {
       set({ user, loading: false })
+      if (!user) {
+        useCatchStore.getState().clearStore()
+      }
     })
   },
 

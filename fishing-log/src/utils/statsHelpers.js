@@ -1,3 +1,9 @@
+const isValidDate = (dateStr) => {
+  if (!dateStr) return false
+  const d = new Date(dateStr)
+  return !isNaN(d)
+}
+
 export const getTotalCatches = (catches) => catches.length
 
 export const getHeaviestCatch = (catches) => {
@@ -17,6 +23,7 @@ export const getMostCaughtSpecies = (catches) => {
 export const getCatchesThisMonth = (catches) => {
   const now = new Date()
   return catches.filter((c) => {
+    if (!isValidDate(c.date)) return false
     const d = new Date(c.date)
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
   }).length
@@ -34,7 +41,8 @@ export const getCatchesBySpecies = (catches) => {
 
 export const getCatchesOverTime = (catches) => {
   const counts = catches.reduce((acc, c) => {
-    const date = c.date.slice(0, 7) // YYYY-MM
+    if (!isValidDate(c.date)) return acc
+    const date = c.date.slice(0, 7)
     acc[date] = (acc[date] || 0) + 1
     return acc
   }, {})
