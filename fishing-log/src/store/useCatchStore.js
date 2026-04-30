@@ -4,15 +4,20 @@ import { v4 as uuidv4 } from 'uuid'
 
 const useCatchStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       catches: [],
 
-      addCatch: (catchData) =>
+      getCatches: (userId) => {
+        return get().catches.filter((c) => c.userId === userId)
+      },
+
+      addCatch: (catchData, userId) =>
         set((state) => ({
           catches: [
             ...state.catches,
             {
               ...catchData,
+              userId,
               id: uuidv4(),
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString(),
